@@ -1,6 +1,7 @@
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
 import { makeAnswer } from 'test/factories/make-answer-factory'
 import { EditAnswerUseCase } from './edit-answer'
+import { NotAllowedError } from './errors/not-allowed-error'
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 // sistem under test
@@ -35,12 +36,12 @@ describe('Edit Answer', () => {
 
     expect(inMemoryAnswersRepository.items).toHaveLength(1)
 
-    await expect(
-      sut.execute({
-        answerId: newAnswer.id.toString(),
-        authorId: 'another-author',
-        description: 'This is a title test answer',
-      }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      answerId: newAnswer.id.toString(),
+      authorId: 'another-author',
+      description: 'This is a title test answer',
+    })
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })
