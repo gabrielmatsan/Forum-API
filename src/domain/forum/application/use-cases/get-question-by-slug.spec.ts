@@ -1,6 +1,7 @@
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 import { makeQuestion } from 'test/factories/make-question-factory'
+import { title } from 'process'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
 // sistem under test
@@ -13,14 +14,17 @@ describe('Get Question', () => {
 
   it('should be able to get a question by slug', async () => {
     const newQuestion = makeQuestion({ title: 'This is a title test question' })
+
     inMemoryQuestionsRepository.create(newQuestion)
 
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       slug: newQuestion.slug.value,
     })
 
-    expect(question.authorId).toBeTruthy()
-    expect(question.slug.value).toEqual('this-is-a-title-test-question')
-    expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id)
+    expect(result.value).toMatchObject({
+      question: expect.objectContaining({
+        title: newQuestion.title,
+      }),
+    })
   })
 })
