@@ -6,7 +6,8 @@
     "test:unit": "vitest run",
    "test:unit:watch": "vitest --watch",
     "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix"
+    "lint:fix": "eslint src --ext .ts --fix",
+    "type:check":"npx tsc --noEmit"
   },
   "keywords": [],
   "author": "",
