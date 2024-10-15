@@ -10,9 +10,12 @@ interface ChooseQuestionBestAnswerUseCaseRequest {
   answerId: string
 }
 
-type ChooseQuestionBestAnswerUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError,{
-  question: Question
-}>
+type ChooseQuestionBestAnswerUseCaseResponse = Either<
+  ResourceNotFoundError | NotAllowedError,
+  {
+    question: Question
+  }
+>
 
 export class ChooseQuestionBestAnswerUseCase {
   constructor(
@@ -46,6 +49,6 @@ export class ChooseQuestionBestAnswerUseCase {
 
     await this.questionsRepository.update(question)
 
-    return right({question})
+    return right({ question })
   }
 }

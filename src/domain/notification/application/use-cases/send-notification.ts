@@ -3,13 +3,13 @@ import { Notification } from '../../enterprise/entities/notification'
 import { NotificationRepository } from '../repositories/notifications-repository'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
-interface sendNotificationUseCaseRequest {
+export interface sendNotificationUseCaseRequest {
   recipientId: string
   title: string
   content: string
 }
 
-type sendNotificationUseCaseResponse = Either<
+export type sendNotificationUseCaseResponse = Either<
   null,
   { notification: Notification }
 >
