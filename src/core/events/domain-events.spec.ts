@@ -33,7 +33,7 @@ describe('Domain Events', () => {
     // Subscriber cadastrado
     DomainEvents.register(callbackSpy, CustomAggregateCreate.name)
 
-    // Estou criando uma resposta, mas sem salvar no banco
+    // Estou criando uma resposta, mas SEM salvar no banco
     const aggregate = CustomAggregate.create()
 
     // Estou assegurando que o evento foi criado porem NAO foi disparado
@@ -44,5 +44,6 @@ describe('Domain Events', () => {
 
     // O subscriber ouve o evento e faz o que precisa ser feito com o dado
     expect(callbackSpy).toHaveBeenCalled()
+    expect(aggregate.domainEvents).toHaveLength(0)
   })
 })

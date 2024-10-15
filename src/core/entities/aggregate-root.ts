@@ -3,6 +3,7 @@ import { DomainEvents } from '../events/domain-events'
 import { Entity } from './entity'
 
 export abstract class AggregateRoot<Props> extends Entity<Props> {
+  // todo agregado vai possuir uma forma de anotar os eventos que ele disparou.
   private _domainEvents: DomainEvent[] = []
 
   get domainEvents(): DomainEvent[] {

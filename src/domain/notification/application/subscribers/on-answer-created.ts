@@ -1,5 +1,5 @@
 import { DomainEvents } from '@/core/events/domain-events'
-import type { EventHandler } from '@/core/events/event-handler'
+import { EventHandler } from '@/core/events/event-handler'
 import { AnswerCreateEvent } from '@/domain/forum/enterprise/events/answer-create-event'
 
 export class OnAnswerCreated implements EventHandler {
@@ -9,10 +9,12 @@ export class OnAnswerCreated implements EventHandler {
 
   setupSubscriptions(): void {
     DomainEvents.register(
-      this.sendNewAnswerNotification,
+      this.sendNewAnswerNotification.bind(this),
       AnswerCreateEvent.name,
     )
   }
 
-  private async sendNewAnswerNotification() {}
+  private async sendNewAnswerNotification({ answer }: AnswerCreateEvent) {
+    console.log(answer)
+  }
 }
